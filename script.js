@@ -8,14 +8,19 @@ let svg = d3
   .attr("width", width)
   .attr("height", height);
 
+let margin = {top: 20, right: 10, bottom: 20, left: 50};
+
 function update(data) {
+
+  let xScale = d3.scaleLinear().domain([0, d3.max(data, d => d.count)]).range([margin.left, width - margin.right]);
+
   svg
     .selectAll("rect")
     .data(data)
     .join("rect")
-    .attr("width", (d, i) => d.count * 5)
+    .attr("width", (d, i) => xScale(d.count) - xScale(0))
     .attr("height", 10)
-    .attr("x", 20)
+    .attr("x", xScale(0))
     .attr("y", (d, i) => i * 20);
 }
 
