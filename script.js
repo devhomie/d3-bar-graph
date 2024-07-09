@@ -13,5 +13,11 @@ d3.select("textarea").on("input", e =>{
         frequencies[char] = currentCount + 1;
     });
 
-    console.log(frequencies)
+    let data = Object.entries(frequencies).map(pair => {
+        return { char: pair[0], count: pair[1]};
+    })
+
+    data.sort((a, b) => d3.ascending(a.char, b.char));
+
+    console.log(data)
 })
