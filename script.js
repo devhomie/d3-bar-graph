@@ -14,14 +14,16 @@ function update(data) {
 
   let xScale = d3.scaleLinear().domain([0, d3.max(data, d => d.count)]).range([margin.left, width - margin.right]);
 
+  let yScale = d3.scaleBand().domain(data.map(d => d.char)).range([margin.top, height - margin.bottom]).padding(0.5);
+
   svg
     .selectAll("rect")
     .data(data)
     .join("rect")
     .attr("width", (d, i) => xScale(d.count) - xScale(0))
-    .attr("height", 10)
+    .attr("height", yScale.bandwidth())
     .attr("x", xScale(0))
-    .attr("y", (d, i) => i * 20);
+    .attr("y", (d, i) => yScale(d.char));
 }
 
 d3.select("textarea").on("input", (e) => {
@@ -37,5 +39,6 @@ d3.select("textarea").on("input", (e) => {
 
   data.sort((a, b) => d3.ascending(a.char, b.char));
 
+  console.log(data);
   update(data);
 });
