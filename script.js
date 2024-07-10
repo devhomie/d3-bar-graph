@@ -10,11 +10,25 @@ let svg = d3
 
 let margin = {top: 20, right: 10, bottom: 20, left: 50};
 
+// Top axis container
+let topContainer = svg.append("g").attr("id", "top").attr("transform", `translate(0, ${margin.top})`);
+
+// Left axis container
+let leftContainer = svg.append("g").attr("id", "left").attr("transform", `translate(${margin.left}, 0)`);
+
 function update(data) {
 
   let xScale = d3.scaleLinear().domain([0, d3.max(data, d => d.count)]).range([margin.left, width - margin.right]);
 
   let yScale = d3.scaleBand().domain(data.map(d => d.char)).range([margin.top, height - margin.bottom]).padding(0.5);
+
+  let topAxis = d3.axisTop(xScale);
+
+  let leftAxis = d3.axisLeft(yScale);
+
+  topContainer.call(topAxis);
+
+  leftContainer.call(leftAxis);
 
   svg
     .selectAll("rect")
