@@ -16,6 +16,18 @@ let topContainer = svg.append("g").attr("id", "top").attr("transform", `translat
 // Left axis container
 let leftContainer = svg.append("g").attr("id", "left").attr("transform", `translate(${margin.left}, 0)`);
 
+function getClass(char){
+  if (/^[a-z]$/.test(char)){
+    return "lower";
+  } else if (/^[A-Z]$/.test(char)){
+    return "upper";
+  } else if (/^0-9$/.test(char)){
+    return "number";
+  } else {
+    return "other";
+  }
+}
+
 function update(data) {
 
   let xScale = d3.scaleLinear().domain([0, d3.max(data, d => d.count)]).range([margin.left, width - margin.right]).nice();
