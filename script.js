@@ -56,11 +56,21 @@ function update(data) {
     .attr("class", (d, i) => getClass(d.char));
 }
 
+function standardizeSpace(char) {
+  if(char.trim() == ""){
+    return "<space>";
+  } else {
+    return char;
+  }
+}
+
 d3.select("textarea").on("input", (e) => {
   let frequencies = {};
   e.target.value.split("").forEach((char) => {
-    let currentCount = frequencies[char] || 0;
-    frequencies[char] = currentCount + 1;
+    let standardized = standardizeSpace(char);
+    let currentCount = frequencies[standardized] || 0;
+    frequencies[standardized] = currentCount + 1;
+
   });
 
   let data = Object.entries(frequencies).map((pair) => {

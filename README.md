@@ -6,6 +6,7 @@
       new techniques like drawing axes to contextualize the data.
 
 ### Styling with CSS and Regular Expressions
+
  - Next we're going to better differentiate the types of characters, we'll give 
    different colors to the bars depending on whether they're lowercase letters,
    uppercase letters, numbers, or any orhter character.
@@ -29,3 +30,17 @@
        - To match a range of characters instead of a single character, use square brackets
          and a hyphen to describe the range.
           - For example, /[a-z]/ matches any lowercase character from a to z.
+
+### Cleaning the Data
+
+ - Often it is nescessary to clean a dataset by fixing any mistakes or irregularities it 
+   contains before visualizing it.
+   - For example, one problem with the current approach to our bar graph is that different
+     whitespace characters show up as different bars, each with an invisible label (because
+     the text of the label is just whitespace).
+   - These whitespace characters include spaces, newlines, tabs, and various other kinds of
+     spaces that you can type with different key combinations ( for example, a non-breaking
+     space, which you can enter with OPTION-spacebar on macOS or CTRL-SHIFT-spacebar on Windows).
+   - TO fix this, we'll convert all whitespace characters to the same "space" string before the
+     character counting, so all whitespace will be visualized by a single bar with a readable
+     label.
