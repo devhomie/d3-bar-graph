@@ -21,7 +21,7 @@ function getClass(char){
     return "lower";
   } else if (/^[A-Z]$/.test(char)){
     return "upper";
-  } else if (/^0-9$/.test(char)){
+  } else if (/^[0-9]$/.test(char)){
     return "number";
   } else {
     return "other";
@@ -52,7 +52,8 @@ function update(data) {
     .attr("width", (d, i) => xScale(d.count) - xScale(0))
     .attr("height", yScale.bandwidth())
     .attr("x", xScale(0))
-    .attr("y", (d, i) => yScale(d.char));
+    .attr("y", (d, i) => yScale(d.char))
+    .attr("class", (d, i) => getClass(d.char));
 }
 
 d3.select("textarea").on("input", (e) => {

@@ -1,0 +1,15 @@
+.lower {
+    fill: purple;
+}
+
+.upper {
+    fill: orange;
+}
+
+.number {
+    fill: green
+}
+
+.other {
+    fill: #555;
+}

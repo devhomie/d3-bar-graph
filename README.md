@@ -26,3 +26,6 @@
        - Similarly, a dollar sign at the end of an expression indicates the character
          sequence should occur at the end of a string, so /hi$/ matches any string that
          ends with 'hi'.
+       - To match a range of characters instead of a single character, use square brackets
+         and a hyphen to describe the range.
+          - For example, /[a-z]/ matches any lowercase character from a to z.
