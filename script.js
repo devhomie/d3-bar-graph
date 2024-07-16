@@ -8,20 +8,26 @@ let svg = d3
   .attr("width", width)
   .attr("height", height);
 
-let margin = {top: 20, right: 10, bottom: 20, left: 50};
+let margin = { top: 20, right: 10, bottom: 20, left: 50 };
 
 // Top axis container
-let topContainer = svg.append("g").attr("id", "top").attr("transform", `translate(0, ${margin.top})`);
+let topContainer = svg
+  .append("g")
+  .attr("id", "top")
+  .attr("transform", `translate(0, ${margin.top})`);
 
 // Left axis container
-let leftContainer = svg.append("g").attr("id", "left").attr("transform", `translate(${margin.left}, 0)`);
+let leftContainer = svg
+  .append("g")
+  .attr("id", "left")
+  .attr("transform", `translate(${margin.left}, 0)`);
 
-function getClass(char){
-  if (/^[a-z]$/.test(char)){
+function getClass(char) {
+  if (/^[a-z]$/.test(char)) {
     return "lower";
-  } else if (/^[A-Z]$/.test(char)){
+  } else if (/^[A-Z]$/.test(char)) {
     return "upper";
-  } else if (/^[0-9]$/.test(char)){
+  } else if (/^[0-9]$/.test(char)) {
     return "number";
   } else {
     return "other";
@@ -29,15 +35,24 @@ function getClass(char){
 }
 
 function update(data) {
+  let xScale = d3
+    .scaleLinear()
+    .domain([0, d3.max(data, (d) => d.count)])
+    .range([margin.left, width - margin.right])
+    .nice();
 
-  let xScale = d3.scaleLinear().domain([0, d3.max(data, d => d.count)]).range([margin.left, width - margin.right]).nice();
+  let yScale = d3
+    .scaleBand()
+    .domain(data.map((d) => d.char))
+    .range([margin.top, height - margin.bottom])
+    .padding(0.5);
 
-  let yScale = d3.scaleBand().domain(data.map(d => d.char)).range([margin.top, height - margin.bottom]).padding(0.5);
+  let topAxisTicks = xScale.ticks().filter((tick) => Number.isInteger(tick));
 
-  let topAxisTicks = xScale.ticks().filter(tick => Number.isInteger(tick));
-
-
-  let topAxis = d3.axisTop(xScale).tickValues(topAxisTicks).tickFormat(d3.format("d"));
+  let topAxis = d3
+    .axisTop(xScale)
+    .tickValues(topAxisTicks)
+    .tickFormat(d3.format("d"));
 
   let leftAxis = d3.axisLeft(yScale);
 
