@@ -44,3 +44,11 @@
    - TO fix this, we'll convert all whitespace characters to the same "space" string before the
      character counting, so all whitespace will be visualized by a single bar with a readable
      label.
+
+### Animating the Changes
+
+ - Our final task is to add animations to the axes and bars. This will make it easier to see when
+   new elements are added and when the counts for existing elements change. 
+ -  To animate the axes
+   all wee need to do is add a call to the -transition- to the -topContainer- and -leftContainer-
+   selections inside the -update- function.

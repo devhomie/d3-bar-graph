@@ -41,9 +41,9 @@ function update(data) {
 
   let leftAxis = d3.axisLeft(yScale);
 
-  topContainer.call(topAxis);
+  topContainer.transition().call(topAxis);
 
-  leftContainer.call(leftAxis);
+  leftContainer.transition().call(leftAxis);
 
   svg
     .selectAll("rect")
