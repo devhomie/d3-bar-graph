@@ -62,17 +62,29 @@ function update(data) {
 
   svg
     .selectAll("rect")
-    .data(data)
-    .join("rect")
-    .attr("width", (d, i) => xScale(d.count) - xScale(0))
-    .attr("height", yScale.bandwidth())
-    .attr("x", xScale(0))
-    .attr("y", (d, i) => yScale(d.char))
-    .attr("class", (d, i) => getClass(d.char));
+    .data(data, (d) => d.char)
+    .join(
+      (enter) =>
+        enter
+          .append("rect")
+          .attr("x", xScale(0))
+          .attr("y", (d, i) => yScale(d.char))
+          .attr("class", (d) => getClass(d.char))
+          .transition()
+          .attr("width", (d) => xScale(d.count) - xScale(0))
+          .attr("height", yScale.bandwidth()),
+      (update) =>
+        update
+          .transition()
+          .attr("width", (d) => xScale(d.count) - xScale(0))
+          .attr("height", yScale.bandwidth())
+          .attr("y", (d, i) => yScale(d.char)),
+      (exit) => exit.transition().attr("width", 0).attr("height", 0).remove()
+    );
 }
 
 function standardizeSpace(char) {
-  if(char.trim() == ""){
+  if (char.trim() == "") {
     return "<space>";
   } else {
     return char;
